@@ -7,13 +7,20 @@ A Minecraft inspired game engine based on WebGL
 ### TODO
 
 - Set up build process
+  - [x] Bundler
+  - Debugging
+  - Assets
 - Set up skeleton page
+  - Handle canvas resizing
 - Set up WebGL
 - Set up game-loop
 - Set up input handling
+  - Keyboard handling
+  - Mouse locking
 - Set up data store
 - Set up messaging
 - Set up World
+  - Asset loading
 - Set up Physics
 - Set up Entities
 - Ad more TODOs...
@@ -21,6 +28,9 @@ A Minecraft inspired game engine based on WebGL
 ### Done
 
 - [x] Set up development project
+  - [x] Git
+  - [x] Prettier
+  - [x] Linter
 
 ## To run
 
