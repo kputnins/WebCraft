@@ -1,3 +1,7 @@
-const TEST_VALUE = 'test value';
+const testValue = (): number => {
+  console.log('testValue called');
+  const t = 5 + 5;
+  return t;
+};
 
-export default TEST_VALUE;
+export default testValue;

@@ -1,3 +1,5 @@
-import TEST_VALUE from './src/core/test';
+import testValue from './src/core/test';
 
-console.log('hello world!', TEST_VALUE);
+const value = testValue();
+
+console.log('hello world!', value);

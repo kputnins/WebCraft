@@ -6,24 +6,24 @@ A Minecraft inspired game engine based on WebGL
 
 ### TODO
 
-- Set up build process
+- [ ] Set up build process
   - [x] Bundler
-  - Debugging
-  - Assets
-- Set up skeleton page
-  - Handle canvas resizing
-- Set up WebGL
-- Set up game-loop
-- Set up input handling
-  - Keyboard handling
-  - Mouse locking
-- Set up data store
-- Set up messaging
-- Set up World
-  - Asset loading
-- Set up Physics
-- Set up Entities
-- Ad more TODOs...
+  - [x] Debugging
+  - [ ] Assets
+- [ ] Set up skeleton page
+  - [ ] Handle canvas resizing
+- [ ] Set up WebGL
+- [ ] Set up game-loop
+- [ ] Set up input handling
+  - [ ] Keyboard handling
+  - [ ] Mouse locking
+- [ ] Set up data store
+- [ ] Set up messaging
+- [ ] Set up World
+  - [ ] Asset loading
+- [ ] Set up Physics
+- [ ] Set up Entities
+- [ ] Ad more TODOs...
 
 ### Done
 
@@ -40,7 +40,7 @@ First install dependencies:
 npm i
 ```
 
-To run locally pn `localhost:1234`:
+To run locally on `localhost:1234`:
 
 ```sh
 npm start
