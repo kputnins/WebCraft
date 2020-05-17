@@ -4,7 +4,7 @@ class Engine {
   private _version: string | undefined;
   private _gameTime = 0;
   private _frameCount = 0;
-  private _previousGameTime = 0;
+  private _frameUpdateCount = 5; // TODO Move to option constant
 
   /**
    * Creates an instance of Engine.
@@ -70,20 +70,19 @@ class Engine {
   private loop(gameTime: number): void {
     requestAnimationFrame(this.loop.bind(this));
     this._frameCount += 1;
-    if (this._frameCount === 100) {
-      const fps = Math.round(
-        this._frameCount / ((this._gameTime - this._previousGameTime) * 0.001),
-      );
-      this._frameCount = 0;
-      this._previousGameTime = this._gameTime;
-
-      document.title = `WebCraft ${this._version} ${fps}fps`;
-    }
 
     const lastTime = this._gameTime;
     this._gameTime = gameTime;
 
     const delta = (this._gameTime - lastTime) * 0.001;
+
+    if (this._frameCount === this._frameUpdateCount) {
+      // eslint-disable-next-line no-bitwise
+      const fps = (1 / delta) | 0;
+      this._frameCount = 0;
+
+      document.title = `WebCraft ${this._version} ${fps}fps`;
+    }
 
     this.update(delta);
   }
