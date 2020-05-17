@@ -10,9 +10,6 @@ A Minecraft inspired game engine based on WebGL
   - [x] Bundler
   - [x] Debugging
   - [ ] Assets
-- [ ] Set up skeleton page
-  - [x] Handle canvas resizing
-  - [ ] Set up game-loop
 - [ ] Set up WebGL
 - [ ] Set up input handling
   - [ ] Keyboard handling
@@ -31,6 +28,9 @@ A Minecraft inspired game engine based on WebGL
   - [x] Git
   - [x] Prettier
   - [x] Linter
+- [x] Set up skeleton page
+  - [x] Handle canvas resizing
+  - [x] Set up game-loop
 
 ## To run
 

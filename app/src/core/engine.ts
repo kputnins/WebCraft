@@ -3,6 +3,8 @@ class Engine {
   private _aspect: number;
   private _version: string | undefined;
   private _gameTime = 0;
+  private _frameCount = 0;
+  private _previousGameTime = 0;
 
   /**
    * Creates an instance of Engine.
@@ -15,8 +17,6 @@ class Engine {
   public constructor(canvas: HTMLCanvasElement, width: number, height: number) {
     this._screen = canvas;
     this._version = process.env.npm_package_version;
-
-    document.title = `WebCraft ${this._version}`;
 
     if (width > height) this._aspect = width / height;
     else this._aspect = height / width;
@@ -34,7 +34,7 @@ class Engine {
 
     this.onWindowResize();
 
-    // this.loop(0);
+    this.loop(0);
   }
 
   /**
@@ -58,6 +58,38 @@ class Engine {
 
     this._screen.width = width;
     this._screen.height = height;
+  }
+
+  /**
+   * Game loop that computes fps and update the engine
+   *
+   * @private
+   * @param {number} gameTime Value from witch to start the inner clock
+   * @memberof Engine
+   */
+  private loop(gameTime: number): void {
+    requestAnimationFrame(this.loop.bind(this));
+    this._frameCount += 1;
+    if (this._frameCount === 100) {
+      const fps = Math.round(
+        this._frameCount / ((this._gameTime - this._previousGameTime) * 0.001),
+      );
+      this._frameCount = 0;
+      this._previousGameTime = this._gameTime;
+
+      document.title = `WebCraft ${this._version} ${fps}fps`;
+    }
+
+    const lastTime = this._gameTime;
+    this._gameTime = gameTime;
+
+    const delta = (this._gameTime - lastTime) * 0.001;
+
+    this.update(delta);
+  }
+
+  private update(dt: number): void {
+    // TODO
   }
 }
 
