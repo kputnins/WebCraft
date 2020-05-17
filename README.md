@@ -11,9 +11,9 @@ A Minecraft inspired game engine based on WebGL
   - [x] Debugging
   - [ ] Assets
 - [ ] Set up skeleton page
-  - [ ] Handle canvas resizing
+  - [x] Handle canvas resizing
+  - [ ] Set up game-loop
 - [ ] Set up WebGL
-- [ ] Set up game-loop
 - [ ] Set up input handling
   - [ ] Keyboard handling
   - [ ] Mouse locking
