@@ -1,10 +1,12 @@
+import { FRAMES_TO_COUNT } from '../constants/options';
+import InputManager from './inputManager';
+
 class Engine {
   private _screen: HTMLCanvasElement;
   private _aspect: number;
   private _version: string | undefined;
   private _gameTime = 0;
   private _frameCount = 0;
-  private _frameUpdateCount = 5; // TODO Move to option constant
 
   /**
    * Creates an instance of Engine.
@@ -29,9 +31,11 @@ class Engine {
    */
   public start(): void {
     console.log(`===== Engine ver ${this._version} started =====`);
+    document.title = `WebCraft ${this._version}`;
+
+    InputManager.init(this._screen);
 
     window.addEventListener('resize', this.onWindowResize.bind(this));
-
     this.onWindowResize();
 
     this.loop(0);
@@ -74,21 +78,44 @@ class Engine {
     const lastTime = this._gameTime;
     this._gameTime = gameTime;
 
-    const delta = (this._gameTime - lastTime) * 0.001;
+    const dt = (this._gameTime - lastTime) * 0.001;
 
-    if (this._frameCount === this._frameUpdateCount) {
-      // eslint-disable-next-line no-bitwise
-      const fps = (1 / delta) | 0;
-      this._frameCount = 0;
+    if (this._frameCount === FRAMES_TO_COUNT) this.updateFPS(dt);
 
-      document.title = `WebCraft ${this._version} ${fps}fps`;
-    }
-
-    this.update(delta);
+    this.update(dt);
   }
 
+  // eslint-disable-next-line class-methods-use-this
   private update(dt: number): void {
-    // TODO
+    // W
+    if (InputManager.isKeyDown(87)) {
+      console.log('w');
+    }
+    // S
+    if (InputManager.isKeyDown(83)) {
+      console.log('s');
+    }
+    // A
+    if (InputManager.isKeyDown(65)) {
+      console.log('a');
+    }
+    // D
+    if (InputManager.isKeyDown(68)) {
+      console.log('d');
+    }
+    // Q
+    if (InputManager.isKeyDown(81)) {
+      console.log('q');
+    }
+  }
+
+  private updateFPS(dt: number): void {
+    // eslint-disable-next-line no-bitwise
+    const fps: number = (1 / dt) | 0;
+    this._frameCount = 0;
+
+    const fpsCounter = document.getElementById('fpsCounter');
+    if (fpsCounter) fpsCounter.innerHTML = fps.toString();
   }
 }
 

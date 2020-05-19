@@ -12,10 +12,8 @@ A Minecraft inspired game engine based on WebGL
   - [ ] Assets
 - [ ] Set up WebGL
 - [ ] Set up input handling
-  - [ ] Keyboard handling
+  - [x] Keyboard handling
   - [ ] Mouse locking
-- [ ] Set up data store
-- [ ] Set up messaging
 - [ ] Set up World
   - [ ] Asset loading
 - [ ] Set up Physics
@@ -31,6 +29,8 @@ A Minecraft inspired game engine based on WebGL
 - [x] Set up skeleton page
   - [x] Handle canvas resizing
   - [x] Set up game-loop
+- [x] Set up data store
+- [x] Set up messaging
 
 ## To run
 
