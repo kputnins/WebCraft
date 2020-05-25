@@ -1,8 +1,16 @@
 # WebCraft
 
-A Minecraft inspired game engine based on WebGL
+A Minecraft inspired game engine based on WebGL - Work In Progress
+
+## Inspired by and based on
+
+TypeScript Game Dev Series - [GLOOM](https://www.youtube.com/redirect?redir_token=r-7RGtn6INKqVcbnAsfkctrJ8qx8MTU5MDUyNDU3NkAxNTkwNDM4MTc2&q=https%3A%2F%2Fgithub.com%2Ftravisvroman%2Fgloom&v=Td7R3JLxa0o&event=video_description)
+By [Travis Vroman](https://www.youtube.com/watch?v=PMvQQlx1L5w&list=PLv8Ddw9K0JPgdB1nl41SpcssTKskP2D5C)
 
 ## Progress
+
+Not much yet..
+![Screenshot](https://i.imgur.com/Id9aKg2.jpg)
 
 ### TODO
 
@@ -10,7 +18,6 @@ A Minecraft inspired game engine based on WebGL
   - [x] Bundler
   - [x] Debugging
   - [ ] Assets
-- [ ] Set up WebGL
 - [ ] Set up input handling
   - [x] Keyboard handling
   - [ ] Mouse locking
@@ -31,6 +38,8 @@ A Minecraft inspired game engine based on WebGL
   - [x] Set up game-loop
 - [x] Set up data store
 - [x] Set up messaging
+- [x] Add Game class
+- [x] Set up basic WebGL
 
 ## To run
 

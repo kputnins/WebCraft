@@ -1,6 +1,6 @@
 {
   "name": "webcraft",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A Minecraft inspired game engine based on WebGL",
   "main": "index.html",
   "keywords": [],
@@ -17,7 +17,9 @@
     "build": "npm-run-all lint clean:release build:prod",
     "lint": "eslint . --ext .ts && tsc --noEmit"
   },
-  "dependencies": {},
+  "dependencies": {
+    "three": "^0.116.1"
+  },
   "devDependencies": {
     "@types/node": "^14.0.1",
     "@typescript-eslint/eslint-plugin": "^2.24.0",

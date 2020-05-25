@@ -1,36 +1,29 @@
 import { FRAMES_TO_COUNT } from '../constants/options';
+import Renderer from './renderer';
 import InputManager from './inputManager';
+import Game from '../game';
 
 class Engine {
+  private _renderer: Renderer;
   private _screen: HTMLCanvasElement;
   private _aspect: number;
   private _version: string | undefined;
   private _gameTime = 0;
   private _frameCount = 0;
+  private _game: Game;
 
-  /**
-   * Creates an instance of Engine.
-   *
-   * @param {HTMLCanvasElement} canvas A canvas element where the screen of the game engine will be dawned
-   * @param {number} width Width for determining the screen aspect ratio
-   * @param {number} height Height for determining the screen aspect ratio
-   * @memberof Engine
-   */
   public constructor(canvas: HTMLCanvasElement, width: number, height: number) {
     this._screen = canvas;
+    this._renderer = new Renderer(canvas);
     this._version = process.env.npm_package_version;
+    this._game = new Game();
 
     if (width > height) this._aspect = width / height;
     else this._aspect = height / width;
   }
 
-  /**
-   * Initializes the engine and starts the game-loop
-   *
-   * @memberof Engine
-   */
   public start(): void {
-    console.log(`===== Engine ver ${this._version} started =====`);
+    console.log(`===== Engine ver ${this._version} Started =====`);
     document.title = `WebCraft ${this._version}`;
 
     InputManager.init(this._screen);
@@ -38,15 +31,11 @@ class Engine {
     window.addEventListener('resize', this.onWindowResize.bind(this));
     this.onWindowResize();
 
+    this._game.onStartup(this._aspect);
+
     this.loop(0);
   }
 
-  /**
-   * Resizes the screen canvas element based on the engines aspect ratio
-   *
-   * @private
-   * @memberof Engine
-   */
   private onWindowResize(): void {
     let width: number;
     let height: number;
@@ -62,15 +51,10 @@ class Engine {
 
     this._screen.width = width;
     this._screen.height = height;
+
+    this._renderer.onResize(width, height);
   }
 
-  /**
-   * Game loop that computes fps and update the engine
-   *
-   * @private
-   * @param {number} gameTime Value from witch to start the inner clock
-   * @memberof Engine
-   */
   private loop(gameTime: number): void {
     requestAnimationFrame(this.loop.bind(this));
     this._frameCount += 1;
@@ -85,27 +69,11 @@ class Engine {
     this.update(dt);
   }
 
-  // eslint-disable-next-line class-methods-use-this
   private update(dt: number): void {
-    // W
-    if (InputManager.isKeyDown(87)) {
-      console.log('w');
-    }
-    // S
-    if (InputManager.isKeyDown(83)) {
-      console.log('s');
-    }
-    // A
-    if (InputManager.isKeyDown(65)) {
-      console.log('a');
-    }
-    // D
-    if (InputManager.isKeyDown(68)) {
-      console.log('d');
-    }
-    // Q
-    if (InputManager.isKeyDown(81)) {
-      console.log('q');
+    this._game.update(dt);
+    this._renderer.update();
+    if (this._game.activeLevel && this._game.activeLevel.isLoaded) {
+      this._renderer.render(this._game.activeLevel, this._game.activeCamera);
     }
   }
 
