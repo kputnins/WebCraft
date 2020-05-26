@@ -1,4 +1,9 @@
-import { WebGLRenderer, WebGLRendererParameters, Camera } from 'three';
+import {
+  WebGLRenderer,
+  WebGLRendererParameters,
+  Camera,
+  WebGLInfo,
+} from 'three';
 import { RENDERER_CLEAR_COLOR } from '../constants/options';
 import Level from '../level/level';
 
@@ -25,5 +30,9 @@ export default class Renderer {
 
   public onResize(width: number, height: number): void {
     this._internal.setSize(width, height);
+  }
+
+  public getInfo(): WebGLInfo {
+    return this._internal.info;
   }
 }

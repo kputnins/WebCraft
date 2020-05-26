@@ -10,14 +10,10 @@ By [Travis Vroman](https://www.youtube.com/watch?v=PMvQQlx1L5w&list=PLv8Ddw9K0JP
 ## Progress
 
 Not much yet..
-![Screenshot](https://i.imgur.com/Id9aKg2.jpg)
+![Screenshot](https://i.imgur.com/Sk57gid.jpg)
 
 ### TODO
 
-- [ ] Set up build process
-  - [x] Bundler
-  - [x] Debugging
-  - [ ] Assets
 - [ ] Set up input handling
   - [x] Keyboard handling
   - [ ] Mouse locking
@@ -33,6 +29,10 @@ Not much yet..
   - [x] Git
   - [x] Prettier
   - [x] Linter
+- [x] Set up build process
+  - [x] Bundler
+  - [x] Debugging
+  - [x] Assets
 - [x] Set up skeleton page
   - [x] Handle canvas resizing
   - [x] Set up game-loop

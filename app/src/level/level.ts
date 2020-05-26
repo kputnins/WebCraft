@@ -1,4 +1,12 @@
-import { Scene, MeshBasicMaterial, Mesh, BoxGeometry, Color } from 'three';
+import {
+  Scene,
+  MeshBasicMaterial,
+  Mesh,
+  BoxGeometry,
+  TextureLoader,
+} from 'three';
+
+import testImage from '../../assets/img/test.png';
 
 export default class Level {
   private _scene: Scene;
@@ -18,8 +26,9 @@ export default class Level {
   }
 
   public load(): void {
+    const texture = new TextureLoader().load(testImage);
+    const material = new MeshBasicMaterial({ map: texture });
     const geometry = new BoxGeometry();
-    const material = new MeshBasicMaterial({ color: new Color('#9900ff') });
     this.testCube = new Mesh(geometry, material);
     this._scene.add(this.testCube);
     this._isLoaded = true;

@@ -1,6 +1,6 @@
 {
   "name": "webcraft",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A Minecraft inspired game engine based on WebGL",
   "main": "index.html",
   "keywords": [],
