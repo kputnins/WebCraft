@@ -1,16 +1,20 @@
-import { PerspectiveCamera, Camera, Vector2 } from 'three';
+import { PerspectiveCamera, Camera, Vector3 } from 'three';
 import IMessageHandler from './message/iMessageHandler';
 import Message from './message/message';
 import InputEventMessage from './constants/inputEventMessage';
 import InputManager from './core/inputManager';
 import TMath from './utils/tMaths';
 import Level from './level/level';
+import { MOVEMENT_SPEED, LOOK_SPEED } from './constants/options';
 
 export default class Game implements IMessageHandler {
   private _camera!: PerspectiveCamera;
   private _level!: Level;
-  private _angle = 0;
-  private _movementSpeed = 5;
+  private _targetPosition = new Vector3();
+  private _angleX = 0;
+  private _angleY = 0;
+  private _movementSpeed = MOVEMENT_SPEED;
+  private _lookSpeed = LOOK_SPEED;
 
   public get activeCamera(): Camera {
     return this._camera;
@@ -22,10 +26,11 @@ export default class Game implements IMessageHandler {
 
   public onStartup(aspect: number): void {
     this._camera = new PerspectiveCamera(45, aspect, 0.1, 1000);
-    this._camera.position.set(0, 0, 2);
+    this._camera.position.set(0, 0, -5);
 
     Message.subscribe(InputEventMessage.KEY_DOWN, this);
     Message.subscribe(InputEventMessage.KEY_UP, this);
+    Message.subscribe(InputEventMessage.MOUSE_MOVE, this);
 
     this.startNew();
   }
@@ -46,72 +51,78 @@ export default class Game implements IMessageHandler {
     let movingBackward = false;
     let movingLeft = false;
     let movingRight = false;
-    let turningLeft = false;
-    let turningRight = false;
+    let movingUp = false;
+    let movingDown = false;
 
-    // W
-    if (InputManager.isKeyDown(87)) {
-      movingForward = true;
-    }
-    // S
-    if (InputManager.isKeyDown(83)) {
-      movingBackward = true;
-    }
-    // A
-    if (InputManager.isKeyDown(65)) {
-      movingLeft = true;
-    }
-    // D
-    if (InputManager.isKeyDown(68)) {
-      movingRight = true;
-    }
-    // Q
-    if (InputManager.isKeyDown(81)) {
-      turningLeft = true;
-    }
-    // E
-    if (InputManager.isKeyDown(69)) {
-      turningRight = true;
-    }
+    // W and S
+    if (InputManager.isKeyDown(87)) movingForward = true;
+    else if (InputManager.isKeyDown(83)) movingBackward = true;
 
-    let velocity = new Vector2();
+    // A and D
+    if (InputManager.isKeyDown(65)) movingLeft = true;
+    else if (InputManager.isKeyDown(68)) movingRight = true;
+
+    // SPACE and SHIFT
+    if (InputManager.isKeyDown(32)) movingUp = true;
+    else if (InputManager.isKeyDown(16)) movingDown = true;
+
+    let velocity = new Vector3();
+
     if (movingForward) {
-      velocity.x = -Math.sin(this._angle);
-      velocity.y = -Math.cos(this._angle);
+      velocity.x = 0;
+      velocity.y = -1;
     } else if (movingBackward) {
-      velocity.x = Math.sin(this._angle);
-      velocity.y = Math.cos(this._angle);
+      velocity.x = 0;
+      velocity.y = 1;
     }
 
     if (movingLeft) {
-      velocity.x += Math.sin(this._angle - TMath.degToRad(90));
-      velocity.y += Math.cos(this._angle - TMath.degToRad(90));
+      velocity.x += -1;
+      velocity.y += 0;
     } else if (movingRight) {
-      velocity.x += Math.sin(this._angle + TMath.degToRad(90));
-      velocity.y += Math.cos(this._angle + TMath.degToRad(90));
+      velocity.x += 1;
+      velocity.y += 0;
+    }
+
+    if (movingUp) {
+      velocity.z += Math.cos(TMath.degToRad(this._angleY));
+      velocity.y += -Math.sin(TMath.degToRad(this._angleY));
+    } else if (movingDown) {
+      velocity.z += -Math.cos(TMath.degToRad(this._angleY));
+      velocity.y += Math.sin(TMath.degToRad(this._angleY));
     }
 
     velocity = velocity.normalize();
     velocity.x *= this._movementSpeed * dt;
     velocity.y *= this._movementSpeed * dt;
+    velocity.z *= this._movementSpeed * dt;
 
-    this._camera.position.x += velocity.x;
-    this._camera.position.z += velocity.y;
+    this._camera.translateX(velocity.x);
+    this._camera.translateZ(velocity.y);
+    this._camera.translateY(velocity.z);
 
-    if (turningLeft) this._angle += 1.5 * dt;
-    else if (turningRight) this._angle -= 1.5 * dt;
+    const phi = TMath.degToRad(90 - this._angleY);
+    const theta = TMath.degToRad(this._angleX);
 
-    this._camera.rotation.y = this._angle;
+    this._targetPosition
+      .setFromSphericalCoords(1, phi, theta)
+      .add(this._camera.position);
+
+    this._camera.lookAt(this._targetPosition);
   }
 
-  // eslint-disable-next-line class-methods-use-this
+  // eslint-disable-next-line
   public onKeyDown(event: KeyboardEvent): void {
-    // console.log(event.key);
   }
 
-  // eslint-disable-next-line class-methods-use-this
+  // eslint-disable-next-line
   public onKeyUp(event: KeyboardEvent): void {
-    // console.log(event);
+  }
+
+  public onMouseMove(event: MouseEvent): void {
+    this._angleX -= event.movementX * this._lookSpeed;
+    this._angleY -= event.movementY * this._lookSpeed;
+    this._angleY = TMath.clamp(this._angleY, -85, 85);
   }
 
   public onMessage(message: Message): void {
@@ -121,6 +132,9 @@ export default class Game implements IMessageHandler {
         break;
       case InputEventMessage.KEY_UP:
         this.onKeyUp(message.context as KeyboardEvent);
+        break;
+      case InputEventMessage.MOUSE_MOVE:
+        this.onMouseMove(message.context as MouseEvent);
         break;
       default:
         throw new Error('Received unexpected Message!');

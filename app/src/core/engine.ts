@@ -1,7 +1,8 @@
-import { FRAMES_TO_COUNT } from '../constants/options';
+import { FRAMES_TO_UPDATE } from '../constants/options';
 import Renderer from './renderer';
 import InputManager from './inputManager';
 import Game from '../game';
+import TMath from '../utils/tMaths';
 
 class Engine {
   private _renderer: Renderer;
@@ -64,7 +65,9 @@ class Engine {
 
     const dt = (this._gameTime - lastTime) * 0.001;
 
-    if (this._frameCount === FRAMES_TO_COUNT) this.updateFPS(dt);
+    if (this._frameCount === FRAMES_TO_UPDATE) {
+      this.updateDebugHUD(dt);
+    }
 
     this.update(dt);
   }
@@ -77,13 +80,41 @@ class Engine {
     }
   }
 
+  private updateDebugHUD(dt: number): void {
+    this.updateFPS(dt);
+    this.updateCameraPosition();
+    this.updateCameraRotation();
+  }
+
   private updateFPS(dt: number): void {
     // eslint-disable-next-line no-bitwise
     const fps: number = (1 / dt) | 0;
     this._frameCount = 0;
 
-    const fpsCounter = document.getElementById('fpsCounter');
-    if (fpsCounter) fpsCounter.innerHTML = fps.toString();
+    const HUDElement = document.getElementById('fps-counter');
+    if (HUDElement) HUDElement.innerHTML = fps.toString();
+  }
+
+  private updateCameraPosition(): void {
+    const HUDElement = document.getElementById('camera-position');
+    if (HUDElement) {
+      const { x, y, z } = this._game.activeCamera.position;
+      const xRound = (Math.round(x * 10) / 10).toFixed(1);
+      const yRound = (Math.round(y * 10) / 10).toFixed(1);
+      const zRound = (Math.round(z * 10) / 10).toFixed(1);
+      HUDElement.innerHTML = `x=${xRound}, y=${yRound}, z=${zRound}`;
+    }
+  }
+
+  private updateCameraRotation(): void {
+    const HUDElement = document.getElementById('camera-rotation');
+    if (HUDElement) {
+      const { x, y, z } = this._game.activeCamera.rotation;
+      const xRound = Math.round(TMath.radToDeg(x));
+      const yRound = Math.round(TMath.radToDeg(y));
+      const zRound = Math.round(TMath.radToDeg(z));
+      HUDElement.innerHTML = `x=${xRound}, y=${yRound}, z=${zRound}`;
+    }
   }
 }
 

@@ -13,6 +13,7 @@ export default class Renderer {
   public constructor(canvasElement: HTMLCanvasElement) {
     const params: WebGLRendererParameters = {
       canvas: canvasElement,
+      antialias: true,
     };
     this._internal = new WebGLRenderer(params);
     this._internal.setClearColor(RENDERER_CLEAR_COLOR);
@@ -23,8 +24,6 @@ export default class Renderer {
   }
 
   public render(level: Level, camera: Camera): void {
-    level.testCube.rotation.x += 0.005; // TODO remove
-    level.testCube.rotation.y += 0.005; // TODO remove
     this._internal.render(level.internalScene, camera);
   }
 

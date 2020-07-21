@@ -16,8 +16,27 @@ class InputManager {
       InputManager._keys[i] = false;
     }
 
+    InputManager._screen.onclick = (): void => {
+      InputManager._screen.requestPointerLock();
+    };
+
     window.addEventListener('keydown', InputManager.onKeyDown);
     window.addEventListener('keyup', InputManager.onKeyUp);
+    document.addEventListener('pointerlockchange', InputManager.onPointerLock);
+  }
+
+  public static onPointerLock(): void {
+    if (document.pointerLockElement === InputManager._screen) {
+      console.log('== Mouse Locked ==');
+      document.addEventListener('mousemove', InputManager.onMouseMove);
+    } else {
+      console.log('== Mouse Unlocked ==');
+      document.removeEventListener('mousemove', InputManager.onMouseMove);
+    }
+  }
+
+  public static onMouseMove(event: MouseEvent): void {
+    Message.send(InputEventMessage.MOUSE_MOVE, null, event);
   }
 
   public static isKeyDown(keyCode: number): boolean {
