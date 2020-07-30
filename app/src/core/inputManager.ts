@@ -26,7 +26,7 @@ class InputManager {
     document.addEventListener('pointerlockchange', InputManager.onPointerLock);
   }
 
-  public static onPointerLock(): void {
+  private static onPointerLock(): void {
     if (document.pointerLockElement === InputManager._screen) {
       if (!this._pointerLocked) {
         document.addEventListener('mousemove', InputManager.onMouseMove);
@@ -35,15 +35,16 @@ class InputManager {
       }
     } else {
       document.removeEventListener('mousemove', InputManager.onMouseMove);
+      document.removeEventListener('click', InputManager.onMouseClick);
       this._pointerLocked = false;
     }
   }
 
-  public static onMouseMove(event: MouseEvent): void {
+  private static onMouseMove(event: MouseEvent): void {
     Message.send(InputEventMessage.MOUSE_MOVE, null, event);
   }
 
-  public static onMouseClick(event: MouseEvent): void {
+  private static onMouseClick(event: MouseEvent): void {
     Message.send(InputEventMessage.MOUSE_CLICK, null, event);
   }
 
