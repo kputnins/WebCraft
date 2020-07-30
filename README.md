@@ -14,13 +14,11 @@ Not much yet..
 
 ### TODO
 
-- [ ] Set up input handling
-  - [x] Keyboard handling
-  - [ ] Mouse locking
 - [ ] Set up World
   - [ ] Asset loading
 - [ ] Set up Physics
 - [ ] Set up Entities
+  - [ ] Block class
 - [ ] Ad more TODOs...
 
 ### Done
@@ -40,6 +38,9 @@ Not much yet..
 - [x] Set up messaging
 - [x] Add Game class
 - [x] Set up basic WebGL
+- [x] Set up input handling
+  - [x] Keyboard handling
+  - [x] Mouse locking
 
 ## To run
 

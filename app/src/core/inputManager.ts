@@ -4,6 +4,7 @@ import InputEventMessage from '../constants/inputEventMessage';
 class InputManager {
   private static _keys: boolean[] = [];
   private static _screen: HTMLCanvasElement;
+  private static _pointerLocked: boolean;
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   private constructor() {}
@@ -27,16 +28,23 @@ class InputManager {
 
   public static onPointerLock(): void {
     if (document.pointerLockElement === InputManager._screen) {
-      console.log('== Mouse Locked ==');
-      document.addEventListener('mousemove', InputManager.onMouseMove);
+      if (!this._pointerLocked) {
+        document.addEventListener('mousemove', InputManager.onMouseMove);
+        document.addEventListener('click', InputManager.onMouseClick);
+        this._pointerLocked = true;
+      }
     } else {
-      console.log('== Mouse Unlocked ==');
       document.removeEventListener('mousemove', InputManager.onMouseMove);
+      this._pointerLocked = false;
     }
   }
 
   public static onMouseMove(event: MouseEvent): void {
     Message.send(InputEventMessage.MOUSE_MOVE, null, event);
+  }
+
+  public static onMouseClick(event: MouseEvent): void {
+    Message.send(InputEventMessage.MOUSE_CLICK, null, event);
   }
 
   public static isKeyDown(keyCode: number): boolean {
