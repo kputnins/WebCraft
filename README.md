@@ -2,24 +2,52 @@
 
 A Minecraft inspired game engine based on WebGL - Work In Progress
 
-## Inspired by and based on
+## Inspired by
 
 TypeScript Game Dev Series - [GLOOM](https://www.youtube.com/redirect?redir_token=r-7RGtn6INKqVcbnAsfkctrJ8qx8MTU5MDUyNDU3NkAxNTkwNDM4MTc2&q=https%3A%2F%2Fgithub.com%2Ftravisvroman%2Fgloom&v=Td7R3JLxa0o&event=video_description)
 By [Travis Vroman](https://www.youtube.com/watch?v=PMvQQlx1L5w&list=PLv8Ddw9K0JPgdB1nl41SpcssTKskP2D5C)
 
 ## Progress
 
-Not much yet..
-![Screenshot](https://i.imgur.com/Sk57gid.jpg)
+Slowly, slowly..
+![Screenshot](screenshot.gif)
+
+## [Live Demo](https://kp.id.lv/)
 
 ### TODO
 
+- [ ] Move date from Level to DataStore
 - [ ] Set up World
-  - [ ] Asset loading
-- [ ] Set up Physics
+  - [x] Initial demo level
+  - [ ] Procedural generation
+- [ ] Set up asset loading
+  - [x] Initial demo texture loading
+  - [ ] Texture atlas
+  - [ ] Loading phase
 - [ ] Set up Entities
-  - [ ] Block class
-- [ ] Ad more TODOs...
+  - [x] Entities class
+    - [x] Voxel call
+  - [ ] Component class
+  - [ ] SafeArray class
+  - [x] Remove redundant Block class
+- [x] Set up rendering
+  - [x] Combine block mesh
+  - [ ] Optimize mesh updating
+  - [ ] Refactor level code
+- [ ] Create a HTML5 HUD system
+  - [ ] Add SCSS support
+  - [ ] Update only on events
+  - [ ] Redo debug HUD
+  - [ ] Add crosshair
+- [ ] Set up Physics
+  - [ ] Collisions
+  - [ ] Gravity
+- [ ] Set up game states
+- [ ] Limit delta time
+- [ ] Create globals
+- [ ] Create dispose methods
+- [ ] Set up audio
+- [ ] Add more TODOs...
 
 ### Done
 
@@ -59,5 +87,7 @@ npm start
 To create a production build:
 
 ```sh
-npm run release
+npm run build
 ```
+
+To debug on VS Code run locally and start the debugger

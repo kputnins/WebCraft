@@ -49,9 +49,7 @@ class Message implements IMessage {
    */
   public static unsubscribe(code: string, handler: IMessageHandler): void {
     if (!Message._subscriptions[code]) {
-      console.warn(
-        `Cannot unsubscribe from code ${code} as it is not currently registered`,
-      );
+      console.warn(`Cannot unsubscribe from code ${code} as it is not currently registered`);
     } else {
       const index = Message._subscriptions[code].indexOf(handler);
       if (index !== -1) {
@@ -75,9 +73,7 @@ class Message implements IMessage {
   public static send(code: string, sender: unknown, context?: unknown): void {
     if (Message._subscriptions[code]) {
       const message = new Message(code, sender, context);
-      Message._subscriptions[code].forEach(handler =>
-        handler.onMessage(message),
-      );
+      Message._subscriptions[code].forEach(handler => handler.onMessage(message));
     }
   }
 }

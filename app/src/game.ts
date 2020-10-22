@@ -15,6 +15,7 @@ export default class Game implements IMessageHandler {
   private _angleY = 0;
   private _movementSpeed = MOVEMENT_SPEED;
   private _lookSpeed = LOOK_SPEED;
+  private _removeMode = false;
 
   public get activeCamera(): Camera {
     return this._camera;
@@ -31,11 +32,12 @@ export default class Game implements IMessageHandler {
     Message.subscribe(InputEventMessage.KEY_DOWN, this);
     Message.subscribe(InputEventMessage.KEY_UP, this);
     Message.subscribe(InputEventMessage.MOUSE_MOVE, this);
+    Message.subscribe(InputEventMessage.MOUSE_CLICK, this);
 
     this.startNew();
   }
 
-  public startNew(): void {
+  private startNew(): void {
     console.log('===== New Game Started =====');
     this._level = new Level();
     this._level.load();
@@ -104,25 +106,33 @@ export default class Game implements IMessageHandler {
     const phi = TMath.degToRad(90 - this._angleY);
     const theta = TMath.degToRad(this._angleX);
 
-    this._targetPosition
-      .setFromSphericalCoords(1, phi, theta)
-      .add(this._camera.position);
+    this._targetPosition.setFromSphericalCoords(1, phi, theta).add(this._camera.position);
 
     this._camera.lookAt(this._targetPosition);
   }
 
   // eslint-disable-next-line
-  public onKeyDown(event: KeyboardEvent): void {
+  private onKeyDown(event: KeyboardEvent): void {
+    if (event.keyCode === 81) {
+      this._removeMode = !this._removeMode;
+      const mode = this._removeMode ? 'REMOVE' : 'ADD';
+      console.log(`=== ${mode} block mode ===`);
+    }
   }
 
   // eslint-disable-next-line
-  public onKeyUp(event: KeyboardEvent): void {
+  private onKeyUp(event: KeyboardEvent): void {
+    console.debug(event);
   }
 
-  public onMouseMove(event: MouseEvent): void {
+  private onMouseMove(event: MouseEvent): void {
     this._angleX -= event.movementX * this._lookSpeed;
     this._angleY -= event.movementY * this._lookSpeed;
     this._angleY = TMath.clamp(this._angleY, -85, 85);
+  }
+
+  private onMouseClick(event: MouseEvent): void {
+    if (event.button === 0) this._level.placeVoxel(this._camera, this._removeMode);
   }
 
   public onMessage(message: Message): void {
@@ -135,6 +145,9 @@ export default class Game implements IMessageHandler {
         break;
       case InputEventMessage.MOUSE_MOVE:
         this.onMouseMove(message.context as MouseEvent);
+        break;
+      case InputEventMessage.MOUSE_CLICK:
+        this.onMouseClick(message.context as MouseEvent);
         break;
       default:
         throw new Error('Received unexpected Message!');

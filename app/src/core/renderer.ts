@@ -1,9 +1,4 @@
-import {
-  WebGLRenderer,
-  WebGLRendererParameters,
-  Camera,
-  WebGLInfo,
-} from 'three';
+import { WebGLRenderer, WebGLRendererParameters, Camera, WebGLInfo } from 'three';
 import { RENDERER_CLEAR_COLOR } from '../constants/options';
 import Level from '../level/level';
 
