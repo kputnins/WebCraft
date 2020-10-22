@@ -18,6 +18,18 @@ body {
   max-height: 100%;
 }
 
+/* HUD */
+#crosshair {
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: darkred;
+}
+
+/* DEBUG */
 #fps-counter {
   position: absolute;
   top: 10px;
@@ -33,5 +45,11 @@ body {
 #camera-rotation {
   position: absolute;
   top: 28px;
+  left: 10px;
+}
+
+#block-count {
+  position: absolute;
+  top: 46px;
   left: 10px;
 }

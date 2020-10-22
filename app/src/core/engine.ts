@@ -84,6 +84,7 @@ class Engine {
     this.updateFPS(dt);
     this.updateCameraPosition();
     this.updateCameraRotation();
+    this.updateBlockCount();
   }
 
   private updateFPS(dt: number): void {
@@ -114,6 +115,14 @@ class Engine {
       const yRound = Math.round(TMath.radToDeg(y));
       const zRound = Math.round(TMath.radToDeg(z));
       HUDElement.innerHTML = `x=${xRound}, y=${yRound}, z=${zRound}`;
+    }
+  }
+
+  private updateBlockCount(): void {
+    const HUDElement = document.getElementById('block-count');
+    if (HUDElement) {
+      const { blockCount } = this._game.activeLevel;
+      HUDElement.innerHTML = `blocks = ${blockCount}`;
     }
   }
 }

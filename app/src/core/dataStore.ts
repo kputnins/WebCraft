@@ -4,13 +4,13 @@
  * @class DataManager
  */
 class DataStore {
-  private static _data: { [name: string]: unknown } = {};
+  private static _data: { [name: string]: unknown } = { entities: new Map() };
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   private constructor() {}
 
   /**
-   * Sets a value o the store
+   * Saves a value to the store
    *
    * @static
    * @template T
@@ -23,7 +23,7 @@ class DataStore {
   }
 
   /**
-   * Gets a value from the store
+   * Retrieves a value from the store
    *
    * @static
    * @template T
@@ -33,6 +33,44 @@ class DataStore {
    */
   public static getValue<T>(name: string): T {
     return DataStore._data[name] as T;
+  }
+
+  /**
+   * Saves an entity to the store
+   *
+   * @static
+   * @template T
+   * @param {string} name Name of the data object
+   * @param {T} value Data object
+   * @memberof DataStore
+   */
+  public static setEntity<T>(name: string, value: T): void {
+    (DataStore.getValue('entities') as Map<string, T>).set(name, value);
+  }
+
+  /**
+   * Retrieves an entity from the store
+   *
+   * @static
+   * @template T
+   * @param {string} name Name of the data object
+   * @returns {T}
+   * @memberof DataStore
+   */
+  public static getEntity<T>(name: string): T {
+    return (DataStore.getValue('entities') as Map<string, T>).get(name) as T;
+  }
+
+  /**
+   * Clears an entity from the store
+   *
+   * @static
+   * @template T
+   * @param {string} name Name of the data object
+   * @memberof DataStore
+   */
+  public static removeEntity<T>(name: string): void {
+    (DataStore.getValue('entities') as Map<string, T>).delete(name);
   }
 }
 
