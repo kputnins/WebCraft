@@ -8,21 +8,19 @@
   },
   "plugins": ["@typescript-eslint"],
   "extends": [
-    "airbnb-typescript/base",
-    "eslint:recommended",
-    "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:prettier/recommended"
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    "airbnb-typescript/base",
+    "prettier/@typescript-eslint",
+    "plugin:prettier/recommended",
+    "prettier/react"
   ],
   "rules": {
-    "linebreak-style": "off",
+    "linebreak-style": ["error", "unix"],
     "no-console": "off",
     "no-underscore-dangle": "off",
     "@typescript-eslint/interface-name-prefix": "off",
-    "lines-between-class-members": [
-      "error",
-      "always",
-      { "exceptAfterSingleLine": true }
-    ]
+    "lines-between-class-members": ["error", "always", { "exceptAfterSingleLine": true }],
+    "@typescript-eslint/lines-between-class-members": "off"
   }
 }

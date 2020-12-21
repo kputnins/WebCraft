@@ -2,9 +2,18 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Chrome Manjaro",
+      "request": "launch",
+      "type": "pwa-chrome",
+      "url": "http://localhost:1234",
+      "webRoot": "${workspaceFolder}/app/src",
+      "sourceMaps": true,
+      "trace": true,
+    },
+    {
+      "name": "Chrome Windows",
       "type": "chrome",
       "request": "launch",
-      "name": "Launch Chrome against localhost",
       "url": "http://localhost:1234",
       "webRoot": "${workspaceFolder}/app/src",
       "sourceMaps": true,
