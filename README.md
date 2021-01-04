@@ -12,7 +12,7 @@ By [Travis Vroman](https://www.youtube.com/watch?v=PMvQQlx1L5w&list=PLv8Ddw9K0JP
 Slowly, slowly..
 ![Screenshot](screenshot.gif)
 
-## [Live Demo](https://kp.id.lv/)
+## [Live Demo](https://kp.id.lv/webcraft)
 
 ### TODO
 
