@@ -73,7 +73,7 @@ class Message implements IMessage {
   public static send(code: string, sender: unknown, context?: unknown): void {
     if (Message._subscriptions[code]) {
       const message = new Message(code, sender, context);
-      Message._subscriptions[code].forEach(handler => handler.onMessage(message));
+      Message._subscriptions[code].forEach((handler) => handler.onMessage(message));
     }
   }
 }

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/unbound-method */
 import Message from '../message/message';
 import InputEventMessage from '../constants/inputEventMessage';
 

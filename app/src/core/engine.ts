@@ -24,8 +24,8 @@ class Engine {
   }
 
   public start(): void {
-    console.log(`===== Engine ver ${this._version} Started =====`);
-    document.title = `WebCraft ${this._version}`;
+    console.log(`===== Engine ver ${this._version || ''} Started =====`);
+    document.title = `WebCraft ${this._version || ''}`;
 
     InputManager.init(this._screen);
 

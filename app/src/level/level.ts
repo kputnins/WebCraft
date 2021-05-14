@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable max-classes-per-file */
 import {
   Scene,
@@ -42,8 +43,8 @@ export default class Level {
   private _chunkSize = 32; // TODO move to settings
   private _chunkArea: number = this._chunkSize * this._chunkSize;
   private _chunkVolume: number = this._chunkSize * this._chunkSize * this._chunkSize;
-  private _chunks: Map<string, Array<Voxel>> = new Map();
-  private _meshes = new Map();
+  private _chunks: Map<string, Array<Voxel>> = new Map<string, Array<Voxel>>();
+  private _meshes = new Map<string, Mesh>();
 
   private _tileSize = 64; // TODO move to settings
   private _tileTextureWidth = 256; // TODO make dynamic
@@ -339,7 +340,7 @@ export default class Level {
 
   private updateVoxelGeometry(x: number, y: number, z: number): void {
     const updatedChunkIDs = new Map();
-    neighborOffsetCoordinates.forEach(offset => {
+    neighborOffsetCoordinates.forEach((offset) => {
       const ox = x + offset[0];
       const oy = y + offset[1];
       const oz = z + offset[2];
@@ -453,9 +454,9 @@ export default class Level {
       // the math imprecision could put us on either side of the face.
       // so go half a normal into the voxel if removing (currentVoxel = 0)
       // our out of the voxel if adding (currentVoxel  > 0)
-      const pos = intersection.position.map((v, ndx) => {
-        return v + intersection.normal[ndx] * (voxel.type !== VoxelTypes.NONE ? 0.5 : -0.5);
-      });
+      const pos = intersection.position.map(
+        (v, ndx) => v + intersection.normal[ndx] * (voxel.type !== VoxelTypes.NONE ? 0.5 : -0.5),
+      );
 
       this.setVoxel(voxel, pos[0], pos[1], pos[2]);
       this.updateVoxelGeometry(pos[0], pos[1], pos[2]);

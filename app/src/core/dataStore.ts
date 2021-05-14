@@ -45,7 +45,7 @@ class DataStore {
    * @memberof DataStore
    */
   public static setEntity<T>(name: string, value: T): void {
-    (DataStore.getValue('entities') as Map<string, T>).set(name, value);
+    DataStore.getValue<Map<string, T>>('entities').set(name, value);
   }
 
   /**
@@ -58,7 +58,7 @@ class DataStore {
    * @memberof DataStore
    */
   public static getEntity<T>(name: string): T {
-    return (DataStore.getValue('entities') as Map<string, T>).get(name) as T;
+    return DataStore.getValue<Map<string, T>>('entities').get(name) as T;
   }
 
   /**
@@ -70,7 +70,7 @@ class DataStore {
    * @memberof DataStore
    */
   public static removeEntity<T>(name: string): void {
-    (DataStore.getValue('entities') as Map<string, T>).delete(name);
+    DataStore.getValue<Map<string, T>>('entities').delete(name);
   }
 }
 
