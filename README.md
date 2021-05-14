@@ -9,10 +9,10 @@ By [Travis Vroman](https://www.youtube.com/watch?v=PMvQQlx1L5w&list=PLv8Ddw9K0JP
 
 ## Progress
 
-Slowly, slowly..
+Probably going to stop as I'm switching to Rust
 ![Screenshot](screenshot.gif)
 
-## [Live Demo](https://kp.id.lv/webcraft)
+## [Live Demo](https://web-craft.netlify.app/)
 
 ### TODO
 
