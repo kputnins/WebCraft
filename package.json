@@ -18,7 +18,7 @@
     "lint": "eslint . --ext .ts --fix && tsc --noEmit"
   },
   "dependencies": {
-    "three": "^0.125.0",
+    "three": "^0.137.0",
     "uuid": "^8.3.1"
   },
   "devDependencies": {
